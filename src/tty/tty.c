@@ -109,6 +109,10 @@ static void tty_cmd_change_cwd(char* args) {
   }
 }
 
+void tty_cmd_pwd() {
+  printf("%s\n", tty_cwd);
+}
+
 void tty_run() {
   while (TRUE) {
     // XXX: how do we ensure, we do not read more than 1025 characters?
@@ -139,6 +143,9 @@ void tty_run() {
     // TODO (fdomig@gmail.com) check for built in command
     if (strcmp(cmd, "cd") == 0) {
       tty_cmd_change_cwd(tokens);
+
+    } else if (strcmp(cmd, "pwd") == 0) {
+      tty_cmd_pwd();
 
       // finally, is there a application with the entered name?
     } else if (!tty_find_binary(cmd)) {
