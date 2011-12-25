@@ -40,10 +40,13 @@
 #define USERNAME "root"
 #define TTY_NAME "ottsh"
 
-#define MAX_PATH_LENGTH     1024
-#define HOME_DIRECTORY      "/root"
+#define MAX_PATH_LENGTH     1024 // this is optimistic that our paths do not exceed 1024 chars
 #define SPLIT_CHARS         " " // may be an array of characters to split CMDs
 #define DIRECTORY_SEPARATOR '/' // must be a single char
+
+#define HOME_DIRECTORY      "/root" // since we do not have any other users, this seems to be OK
+#define BIN_DIRECTORY       "/bin" // anything else does not make any sense
+#define LOG_DIRECTORY       "/var/log" // again, this is standard UNIX
 
 EXTERN void tty_run();
 

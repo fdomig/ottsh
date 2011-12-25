@@ -129,7 +129,7 @@ void tty_run() {
       // TODO (fdomig@gmail.com) line was already at EOF while trying to get
       // the first character
     } else if (rc == 0) {
-      // TODO (fdomig@gmail.com) the user entered an empty line of code
+      // TODO (fdomig@gmail.com) the user entered an empty line
     }
 
     if (!feof(stdin) && !ferror(stdin)) getchar();
@@ -140,7 +140,6 @@ void tty_run() {
     tokens = strtok(NULL, SPLIT_CHARS);
 
     // check for a built in command
-    // TODO (fdomig@gmail.com) check for built in command
     if (strcmp(cmd, "cd") == 0) {
       tty_cmd_change_cwd(tokens);
 
