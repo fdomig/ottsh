@@ -41,7 +41,7 @@
 #define TTY_NAME "ottsh"
 
 #define MAX_PATH_LENGTH     1024
-#define HOME_DIRECTORY      "~"
+#define HOME_DIRECTORY      "/root"
 #define SPLIT_CHARS         " " // may be an array of characters to split CMDs
 #define DIRECTORY_SEPARATOR '/' // must be a single char
 

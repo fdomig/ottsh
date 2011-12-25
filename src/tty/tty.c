@@ -26,14 +26,13 @@
 #include <string.h>
 
 // keep track of the current working directory
-// start with the users $HOME directory which
-// may be aliased with a tilde
+// start with the users $HOME directory
 static char tty_cwd[MAX_PATH_LENGTH] = HOME_DIRECTORY;
 
 // functions which may be moved to the ottos project
-char *strtrim_right(register char *p, register c) {
-  register char *end;
-  register int len;
+char *strtrim_right(char *p, char c) {
+  char *end;
+  int len;
 
   len = strlen(p);
   while (*p && len) {
@@ -71,7 +70,10 @@ static BOOLEAN tty_find_binary(const char* name) {
   return FALSE;
 }
 
+// TODO (fdomig@gmail.com) move the CMDs to a separate file
 static void tty_cmd_change_cwd(char* args) {
+  // TODO (fdomig@gmail.com) ensure, the directory to change to exists
+
   // change to home directory if no path is given
   if (args == NULL) {
     sprintf(tty_cwd, "%s", HOME_DIRECTORY);
@@ -83,14 +85,21 @@ static void tty_cmd_change_cwd(char* args) {
     strtrim_right(args, DIRECTORY_SEPARATOR);
   }
 
-  // change to a directory with an absolut path
+  // change to a directory with an absolute path
   if (*args == DIRECTORY_SEPARATOR) {
     sprintf(tty_cwd, "%s", args);
 
-    // change to upper directory or stay in current directory
+    // change to parent directory or stay in current directory
   } else if (*args == '.') {
-    if (*(args + 1) == '.') {
-
+    // change to parent directory
+    if (*(args + 1) == '.' && strlen(tty_cwd) > 1) {
+      int i = strlen(tty_cwd);
+      while (tty_cwd[--i] != DIRECTORY_SEPARATOR);
+      if (i > 0) {
+        tty_cwd[i] = '\0';
+      } else {
+        tty_cwd[i+1] = '\0';
+      }
     }
 
     // change to a child directory
